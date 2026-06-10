@@ -14,9 +14,5 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
     notFound();
   }
 
-  return (
-    <div className="container mx-auto px-4 sm:px-6">
-      <ChallengeCard challenge={challenge} />
-    </div>
-  );
+  return <ChallengeCard challenge={challenge} />;
 }
