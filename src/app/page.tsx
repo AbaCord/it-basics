@@ -35,7 +35,7 @@ export default async function ChallengesPage() {
             <p className="text-sm font-medium">Start by forking the repo</p>
             <p className="text-muted-foreground text-xs">
               Challenge 01 walks you through it. All other challenges unlock
-              once you&apos;ve pushed your first commit.
+              once it&apos;s completed.
             </p>
           </div>
         </div>

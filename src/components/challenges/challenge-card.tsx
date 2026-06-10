@@ -189,7 +189,15 @@ export function ChallengeCard({
 
       <CardContent className="space-y-4 pl-5">
         <div className="prose dark:prose-invert w-full max-w-none">
-          <ReactMarkdown>{challenge.description}</ReactMarkdown>
+          <ReactMarkdown
+            components={{
+              a: ({ ...props }) => (
+                <a {...props} target="_blank" rel="noopener noreferrer" />
+              ),
+            }}
+          >
+            {challenge.description}
+          </ReactMarkdown>
         </div>
 
         {checkResults.length > 0 && <CheckResultsList results={checkResults} />}

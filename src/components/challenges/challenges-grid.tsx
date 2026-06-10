@@ -51,9 +51,9 @@ export function ChallengesGrid({ completedSet }: ChallengesGridProps) {
               // fork / getting started
               isFork &&
                 !completed &&
-                "border-amber-500/30 bg-amber-500/[0.03] hover:border-amber-500/50",
+                "border-amber-500/30 bg-amber-500/3 hover:border-amber-500/50",
               // completed
-              completed && "border-emerald-500/25 bg-emerald-500/[0.03]",
+              completed && "border-emerald-500/25 bg-emerald-500/3",
               // locked
               locked && "cursor-default",
             )}
