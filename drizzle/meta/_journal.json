@@ -8,6 +8,13 @@
       "when": 1781030954485,
       "tag": "0000_silky_magneto",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1781096182399,
+      "tag": "0001_familiar_bishop",
+      "breakpoints": true
     }
   ]
 }

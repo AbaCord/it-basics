@@ -8,7 +8,7 @@ export type Challenge = {
   genre: "terminal" | "git";
 } & ({ type: "flag"; flag: string } | { type: "repo"; checks: RepoCheck[] });
 
-export const challenges = [
+export const challenges: Challenge[] = [
   {
     id: "getting-started",
     title: "Getting Started",
@@ -25,4 +25,12 @@ Once your fork is set up, you'll be ready to continue with the rest of the cours
     type: "repo",
     checks: [{ type: "fork_exists" }],
   },
-] as const satisfies Challenge[];
+  {
+    id: "flag",
+    title: "Flag test",
+    description: "# Enter the flag FLAG{test}",
+    genre: "terminal",
+    type: "flag",
+    flag: "FLAG{test}",
+  },
+];

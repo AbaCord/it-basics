@@ -12,7 +12,6 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import {
   GitFork,
@@ -26,16 +25,12 @@ import {
 } from "lucide-react";
 import { Challenge } from "@/lib/challenges/meta";
 import { authClient } from "@/lib/auth-client";
-import { Skeleton } from "../ui/skeleton";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { validateFlagAction, validateRepoAction } from "@/actions/validation";
 
 type CheckResult = { passed: boolean; message: string };
 
-type ChallengeCardProps = {
-  challenge: Challenge;
-};
-
-function TaskTypeBadge({ type }: { type: Challenge["type"] }) {
+function ChallengeTypeBadge({ type }: { type: Challenge["type"] }) {
   return (
     <Badge
       variant="outline"
@@ -96,30 +91,73 @@ function CheckResultsList({ results }: { results: CheckResult[] }) {
   );
 }
 
-export function ChallengeCard({ challenge: task }: ChallengeCardProps) {
-  const { data: session, isPending: sessionPending } = authClient.useSession();
-  const user = session?.user;
+type ChallengeCardProps = {
+  challenge: Challenge;
+  isCompleted: boolean;
+  isLoggedIn: boolean;
+};
+
+export function ChallengeCard({
+  challenge,
+  isCompleted,
+  isLoggedIn,
+}: ChallengeCardProps) {
+  const router = useRouter();
 
   const pathname = usePathname();
 
-  const [completed, setCompleted] = useState(false);
+  const [completed, setCompleted] = useState(isCompleted);
   const [loading, setLoading] = useState(false);
   const [flagInput, setFlagInput] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [checkResults, setCheckResults] = useState<CheckResult[]>([]);
 
   async function handleRepoSubmit() {
-    setCompleted(true);
+    setLoading(true);
+    setError(null);
+    setCheckResults([]);
+    try {
+      const result = await validateRepoAction(challenge.id);
+      console.table(result);
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
+      setCheckResults(result.checkResults ?? []);
+      if (result.passed) {
+        setCompleted(true);
+        router.refresh();
+      }
+    } catch {
+      setError("Something went wrong. Try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
-  async function handleFlagSubmit() {}
+  async function handleFlagSubmit() {
+    if (!flagInput.trim()) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const result = await validateFlagAction(challenge.id, flagInput);
+      if (result.passed) {
+        setCompleted(true);
+        router.refresh();
+      } else setError(result.message);
+    } catch {
+      setError("Something went wrong, Try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <Card
       className={cn(
         "group relative overflow-hidden transition-all duration-300",
         "border-border/60 bg-card",
-        completed && "border-emerald-500/30 bg-emerald-500/[0.02]",
+        completed && "border-emerald-500/30 bg-emerald-500/2",
       )}
     >
       <div
@@ -127,7 +165,7 @@ export function ChallengeCard({ challenge: task }: ChallengeCardProps) {
           "absolute inset-y-0 left-0 w-0.5 transition-colors duration-300",
           completed
             ? "bg-emerald-500"
-            : task.type === "repo"
+            : challenge.type === "repo"
               ? "bg-violet-500/50 group-hover:bg-violet-500"
               : "bg-amber-500/50 group-hover:bg-amber-500",
         )}
@@ -136,7 +174,7 @@ export function ChallengeCard({ challenge: task }: ChallengeCardProps) {
       <CardHeader className="pb-3 pl-5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-2">
-            <TaskTypeBadge type={task.type} />
+            <ChallengeTypeBadge type={challenge.type} />
             {completed && <CompletedBadge />}
           </div>
           {!completed && (
@@ -145,13 +183,13 @@ export function ChallengeCard({ challenge: task }: ChallengeCardProps) {
         </div>
 
         <h3 className="text-foreground mt-2 text-base font-semibold tracking-tight">
-          {task.title}
+          {challenge.title}
         </h3>
       </CardHeader>
 
       <CardContent className="space-y-4 pl-5">
         <div className="prose dark:prose-invert w-full max-w-none">
-          <ReactMarkdown>{task.description}</ReactMarkdown>
+          <ReactMarkdown>{challenge.description}</ReactMarkdown>
         </div>
 
         {checkResults.length > 0 && <CheckResultsList results={checkResults} />}
@@ -166,11 +204,8 @@ export function ChallengeCard({ challenge: task }: ChallengeCardProps) {
 
       {!completed && (
         <>
-          <Separator className="mx-5 w-auto" />
           <CardFooter className="pt-4 pl-5">
-            {sessionPending ? (
-              <Skeleton className="h-9 w-32 rounded-md" />
-            ) : !user ? (
+            {!isLoggedIn ? (
               <div className="text-muted-foreground flex items-center gap-2 text-xs">
                 <Lock className="size-3.5 shrink-0" />
                 <span>
@@ -188,7 +223,7 @@ export function ChallengeCard({ challenge: task }: ChallengeCardProps) {
                   to submit
                 </span>
               </div>
-            ) : task.type === "repo" ? (
+            ) : challenge.type === "repo" ? (
               <Button
                 onClick={handleRepoSubmit}
                 disabled={loading}
@@ -202,29 +237,14 @@ export function ChallengeCard({ challenge: task }: ChallengeCardProps) {
                 {loading ? "Checking…" : "Validate"}
               </Button>
             ) : (
-              <div className="flex w-full gap-2">
-                <Input
-                  value={flagInput}
-                  onChange={(e) => setFlagInput(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleFlagSubmit()}
-                  placeholder="FLAG{...}"
-                  className="h-9 flex-1 text-xs"
-                  disabled={loading}
-                />
-                <Button
-                  onClick={handleFlagSubmit}
-                  disabled={loading || !flagInput.trim()}
-                  size="sm"
-                  className="shrink-0 gap-2 text-xs"
-                >
-                  {loading ? (
-                    <Loader2 className="size-3.5 animate-spin" />
-                  ) : (
-                    <Flag className="size-3.5" />
-                  )}
-                  {loading ? "…" : "Submit"}
-                </Button>
-              </div>
+              <Input
+                value={flagInput}
+                onChange={(e) => setFlagInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleFlagSubmit()}
+                placeholder="FLAG{...}"
+                className="h-9 flex-1 text-xs"
+                disabled={loading}
+              />
             )}
           </CardFooter>
         </>
