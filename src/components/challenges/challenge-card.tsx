@@ -22,8 +22,12 @@ import {
   CircleDot,
   Loader2,
   Terminal,
+  Lock,
 } from "lucide-react";
 import { Challenge } from "@/lib/challenges/meta";
+import { authClient } from "@/lib/auth-client";
+import { Skeleton } from "../ui/skeleton";
+import { usePathname } from "next/navigation";
 
 type CheckResult = { passed: boolean; message: string };
 
@@ -93,6 +97,11 @@ function CheckResultsList({ results }: { results: CheckResult[] }) {
 }
 
 export function ChallengeCard({ challenge: task }: ChallengeCardProps) {
+  const { data: session, isPending: sessionPending } = authClient.useSession();
+  const user = session?.user;
+
+  const pathname = usePathname();
+
   const [completed, setCompleted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [flagInput, setFlagInput] = useState("");
@@ -159,7 +168,27 @@ export function ChallengeCard({ challenge: task }: ChallengeCardProps) {
         <>
           <Separator className="mx-5 w-auto" />
           <CardFooter className="pt-4 pl-5">
-            {task.type === "repo" ? (
+            {sessionPending ? (
+              <Skeleton className="h-9 w-32 rounded-md" />
+            ) : !user ? (
+              <div className="text-muted-foreground flex items-center gap-2 text-xs">
+                <Lock className="size-3.5 shrink-0" />
+                <span>
+                  <button
+                    className="hover:text-foreground underline underline-offset-2 transition-colors"
+                    onClick={() =>
+                      authClient.signIn.social({
+                        provider: "github",
+                        callbackURL: pathname,
+                      })
+                    }
+                  >
+                    Sign in with GitHub
+                  </button>{" "}
+                  to submit
+                </span>
+              </div>
+            ) : task.type === "repo" ? (
               <Button
                 onClick={handleRepoSubmit}
                 disabled={loading}

@@ -16,7 +16,8 @@ import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { challenges } from "@/lib/challenges/meta";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { Skeleton } from "./ui/skeleton";
 
 function Wordmark() {
   const [visible, setVisible] = useState(true);
@@ -65,18 +66,24 @@ function ProgressPill({
   );
 }
 
-type User = {
+function ProgressPillSkeleton() {
+  return (
+    <div className="hidden items-center gap-2.5 sm:flex">
+      <Skeleton className="h-1.5 w-24 rounded-full" />
+      <Skeleton className="h-3 w-8 rounded" />
+    </div>
+  );
+}
+
+type UserMenuProps = {
   name: string;
   image?: string | null;
   email?: string;
 };
 
-function UserMenu({ user }: { user: User }) {
-  const router = useRouter();
-
+function UserMenu({ name, image, email }: UserMenuProps) {
   async function handleSignOut() {
     await authClient.signOut();
-    router.refresh();
   }
 
   return (
@@ -87,9 +94,9 @@ function UserMenu({ user }: { user: User }) {
           className="rouned-full ring-offset-background focus-visible:ring-ring relative h-8 w-8 p-0 focus-visible:ring-2"
         >
           <Avatar className="h-8 w-8">
-            <AvatarImage src={user.image ?? undefined} alt={user.name} />
+            <AvatarImage src={image ?? undefined} alt={name} />
             <AvatarFallback className="bg-violet-500/10 text-xs font-semibold text-violet-600">
-              {user.name.slice(0, 2).toUpperCase()}
+              {name.slice(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -97,11 +104,9 @@ function UserMenu({ user }: { user: User }) {
 
       <DropdownMenuContent align="end" className="w-48">
         <div className="px-2 py-1.5">
-          <p className="text-foreground text-xs font-medium">@{user.name}</p>
-          {user.email && (
-            <p className="text-muted-foreground truncate text-xs">
-              {user.email}
-            </p>
+          <p className="text-foreground text-xs font-medium">@{name}</p>
+          {email && (
+            <p className="text-muted-foreground truncate text-xs">{email}</p>
           )}
         </div>
 
@@ -119,12 +124,16 @@ function UserMenu({ user }: { user: User }) {
   );
 }
 
-type HeaderProps = {
-  user: User | null;
-  completedCount: number;
-};
+function UserMenuSkeleton() {
+  return <Skeleton className="h-8 w-8 rounded-full" />;
+}
 
-export function Header({ user, completedCount }: HeaderProps) {
+export function Header() {
+  const total = challenges.length;
+
+  const { data: session, isPending: sessionPending } = authClient.useSession();
+  const user = session?.user;
+
   const pathname = usePathname();
 
   return (
@@ -133,15 +142,16 @@ export function Header({ user, completedCount }: HeaderProps) {
         <Wordmark />
 
         <div className="flex items-center gap-4">
-          {user && (
-            <ProgressPill
-              completed={completedCount}
-              total={challenges.length}
-            />
-          )}
-
-          {user ? (
-            <UserMenu user={user} />
+          {sessionPending ? (
+            <>
+              <ProgressPillSkeleton />
+              <UserMenuSkeleton />
+            </>
+          ) : user ? (
+            <>
+              <ProgressPill completed={0} total={total} />
+              <UserMenu {...user} />
+            </>
           ) : (
             <Button
               size="sm"
