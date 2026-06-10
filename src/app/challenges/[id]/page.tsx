@@ -15,7 +15,7 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
   }
 
   return (
-    <div className="container mx-auto py-4">
+    <div className="container mx-auto px-4 sm:px-6">
       <ChallengeCard challenge={challenge} />
     </div>
   );
