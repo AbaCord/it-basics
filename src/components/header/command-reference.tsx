@@ -174,7 +174,7 @@ function CommandRow({
     <div className="group flex items-start justify-between gap-3 py-2">
       <div className="flex min-w-0 items-start gap-2">
         <CopyButton text={display} />
-        <code className="text-foreground text-xs leading-relaxed break-all">
+        <code className="text-foreground text-xs leading-relaxed">
           {display}
         </code>
       </div>
