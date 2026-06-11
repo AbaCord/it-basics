@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { BookOpen, Copy, Check } from "lucide-react";
 
 type Platform = "mac" | "windows";
@@ -208,7 +207,7 @@ export function CommandReference() {
           </Tabs>
         </SheetHeader>
 
-        <ScrollArea className="flex-1">
+        <div className="min-h-0 flex-1 overflow-y-auto">
           <div className="space-y-6 px-5 py-4">
             {SECTIONS.map((section) => (
               <div key={section.title}>
@@ -227,7 +226,7 @@ export function CommandReference() {
               </div>
             ))}
           </div>
-        </ScrollArea>
+        </div>
       </SheetContent>
     </Sheet>
   );
