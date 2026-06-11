@@ -22,7 +22,9 @@ Click the **fork** button on the challenge repository at [https://github.com/${O
 
 ![Fork button](/github-fork-button.png)
 
-Keep the repository name unchanged: **${REPO_NAME}**.
+Keep the repository name unchanged: **${REPO_NAME}**, and uncheck the "Copy the main branch only" option.
+
+![Fork options](/github-fork-options.png)
 
 After forking, you should see the repository under your GitHub account:
 
