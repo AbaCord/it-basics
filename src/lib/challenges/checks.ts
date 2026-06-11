@@ -52,7 +52,7 @@ export async function fetchFileContent(
   path: string,
   accessToken: string,
 ) {
-  const url = `${GITHUB_API}/repos/${owner}/${REPO_NAME}/content/${path}`;
+  const url = `${GITHUB_API}/repos/${owner}/${REPO_NAME}/contents/${path}`;
   const res = await fetch(url, { headers: githubHeaders(accessToken) });
 
   if (res.status === 404) return null;
@@ -121,7 +121,7 @@ async function runCheck(check: RepoCheck, owner: string, accessToken: string) {
 
     case "file_exists": {
       const content = await fetchFileContent(owner, check.path, accessToken);
-      return content === null
+      return content !== null
         ? { passed: true, message: `Found ${check.path}` }
         : { passed: false, message: `Missing file: ${check.path}` };
     }
