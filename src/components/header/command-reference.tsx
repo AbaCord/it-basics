@@ -58,6 +58,21 @@ const SECTIONS: Section[] = [
         description: "Print file contents",
       },
       { cmd: "clear", win: "cls", description: "Clear the terminal" },
+      {
+        cmd: "mv <source> <destination>",
+        win: "move <source> <destination>",
+        description: "Move a file or folder",
+      },
+      {
+        cmd: "mv <old name> <new name>",
+        win: "ren <old name> <new name>",
+        description: "Rename a file",
+      },
+      {
+        cmd: "nano <filename>",
+        win: "notepad <filename>",
+        description: "Open a simple text editor",
+      },
     ],
   },
   {
