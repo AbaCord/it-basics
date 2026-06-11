@@ -7,6 +7,7 @@ import { getCompletedChallenges } from "@/lib/queries/completion";
 import { Progress } from "@/components/ui/progress";
 import { UserButton } from "./user-button";
 import { getSession } from "@/lib/queries/session";
+import { CommandReference } from "./command-reference";
 
 async function ProgressPill({ userId }: { userId: string }) {
   const completed = await getCompletedChallenges(userId);
@@ -47,6 +48,7 @@ export async function Header() {
               <ProgressPill userId={session.user.id} />
             </Suspense>
           )}
+          <CommandReference />
           <UserButton user={session?.user ?? null} />
         </div>
       </div>
