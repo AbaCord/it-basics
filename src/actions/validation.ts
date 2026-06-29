@@ -3,7 +3,7 @@
 import { db } from "@/db";
 import { completion } from "@/db/schema";
 import { auth } from "@/lib/auth";
-import { CheckResult, runAllChecks } from "@/lib/challenges/checks";
+import { CheckResult, fetchAuthenticatedLogin, runAllChecks } from "@/lib/challenges/checks";
 import { Challenge } from "@/lib/challenges/meta";
 import { findChallenge } from "@/lib/challenges/registry";
 import { headers } from "next/headers";
@@ -24,11 +24,23 @@ export async function validateRepoAction(challengeId: Challenge["id"]) {
     },
     headers: heads,
   });
-  const githubUsername = session.user.name.trim().toLowerCase();
+
+  if (!accessToken?.accessToken) {
+    return {
+      passed: false,
+      error: "GitHub access token not available. Re-sign in and try again.",
+      checkResults: [],
+    };
+  }
 
   let checkResults: CheckResult[];
 
   try {
+    // session.user.name is the display name, not the GitHub login.
+    // Resolve the real login via the GitHub API using the access token.
+    const githubUsername = await fetchAuthenticatedLogin(
+      accessToken.accessToken,
+    );
     checkResults = await runAllChecks(
       challenge.checks,
       githubUsername,

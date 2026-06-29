@@ -76,6 +76,23 @@ export async function fetchCommits(
   return json.map((c) => ({ message: c.commit.message }));
 }
 
+/**
+ * Resolve the authenticated user's GitHub login.
+ *
+ * `session.user.name` is the display name, not the login, and may contain
+ * spaces or differ entirely from the username. The repo checks need the
+ * real login, so we fetch it from the GitHub API using the access token.
+ */
+export async function fetchAuthenticatedLogin(accessToken: string) {
+  const url = `${GITHUB_API}/user`;
+  const res = await fetch(url, { headers: githubHeaders(accessToken) });
+
+  if (!res.ok) throw new Error(`GitHub api error ${res.status} for /user`);
+
+  const json = (await res.json()) as { login: string };
+  return json.login;
+}
+
 export async function verifyFork(owner: string, accessToken: string) {
   const url = `${GITHUB_API}/repos/${owner}/${REPO_NAME}`;
   const res = await fetch(url, { headers: githubHeaders(accessToken) });
