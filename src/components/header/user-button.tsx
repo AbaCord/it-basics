@@ -12,6 +12,7 @@ import {
 import { LogOut } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { SignInButton } from "../sign-in-button";
 
 type User = {
   name: string;
@@ -24,13 +25,7 @@ export function UserButton({ user }: { user: User | null }) {
 
   if (!user) {
     return (
-      <Button
-        size="sm"
-        className="text-xs"
-        onClick={() => authClient.signIn.social({ provider: "github" })}
-      >
-        Sign in with GitHub
-      </Button>
+      <SignInButton />
     );
   }
 
@@ -46,7 +41,7 @@ export function UserButton({ user }: { user: User | null }) {
           variant="ghost"
           className="ring-offset-background focus-visible:ring-ring relative h-8 w-8 rounded-full p-0 focus-visible:ring-2"
         >
-          <Avatar className="h-8 w-8">
+          <Avatar className="h-8 w-8 hover:cursor-pointer">
             <AvatarImage src={user.image ?? undefined} alt={user.name} />
             <AvatarFallback className="bg-violet-500/10 text-xs font-semibold text-violet-600">
               {user.name.slice(0, 2).toUpperCase()}
