@@ -218,7 +218,7 @@ export function ChallengeCard({
                 <Lock className="size-3.5 shrink-0" />
                 <span>
                   <button
-                    className="hover:text-foreground underline underline-offset-2 transition-colors"
+                    className="hover:text-foreground underline underline-offset-2 transition-colors cursor-pointer"
                     onClick={() =>
                       authClient.signIn.social({
                         provider: "github",
@@ -235,7 +235,7 @@ export function ChallengeCard({
               <Button
                 onClick={handleRepoSubmit}
                 disabled={loading}
-                className="gap-2 text-xs"
+                className="gap-2 text-xs cursor-pointer"
               >
                 {loading ? (
                   <Loader2 className="size-3.5 animate-spin" />

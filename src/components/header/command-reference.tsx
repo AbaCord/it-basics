@@ -194,7 +194,7 @@ export function CommandReference() {
         <Button
           variant="ghost"
           size="sm"
-          className="text-muted-foreground hover:text-foreground gap-2 text-xs"
+          className="text-muted-foreground hover:text-foreground gap-2 text-xs cursor-pointer"
         >
           <BookOpen className="size-3.5" />
           <span className="hidden sm:inline">Reference</span>
