@@ -24,7 +24,7 @@ export async function validateRepoAction(challengeId: Challenge["id"]) {
     },
     headers: heads,
   });
-  const githubUsername = session.user.name.trim().toLowerCase();
+  const githubUsername = session.user.githubUsername;
 
   let checkResults: CheckResult[];
 
