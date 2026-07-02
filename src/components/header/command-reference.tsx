@@ -154,7 +154,7 @@ function CopyButton({ text }: { text: string }) {
       {copied ? (
         <Check className="size-3 text-emerald-500" />
       ) : (
-        <Copy className="size-3" />
+        <Copy className="size-3 cursor-pointer" />
       )}
     </button>
   );
@@ -194,7 +194,7 @@ export function CommandReference() {
         <Button
           variant="ghost"
           size="sm"
-          className="text-muted-foreground hover:text-foreground gap-2 text-xs"
+          className="text-muted-foreground hover:text-foreground gap-2 text-xs cursor-pointer"
         >
           <BookOpen className="size-3.5" />
           <span className="hidden sm:inline">Reference</span>
@@ -212,10 +212,10 @@ export function CommandReference() {
             onValueChange={(v) => setPlatform(v as Platform)}
           >
             <TabsList className="h-8 p-0.5">
-              <TabsTrigger value="mac" className="h-7 px-3 text-xs">
+              <TabsTrigger value="mac" className="h-7 px-3 text-xs cursor-pointer">
                 macOS / Linux
               </TabsTrigger>
-              <TabsTrigger value="windows" className="h-7 px-3 text-xs">
+              <TabsTrigger value="windows" className="h-7 px-3 text-xs cursor-pointer">
                 Windows
               </TabsTrigger>
             </TabsList>

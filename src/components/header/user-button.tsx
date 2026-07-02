@@ -41,7 +41,7 @@ export function UserButton({ user }: { user: User | null }) {
           variant="ghost"
           className="ring-offset-background focus-visible:ring-ring relative h-8 w-8 rounded-full p-0 focus-visible:ring-2"
         >
-          <Avatar className="h-8 w-8 hover:cursor-pointer">
+          <Avatar className="h-8 w-8 cursor-pointer">
             <AvatarImage src={user.image ?? undefined} alt={user.name} />
             <AvatarFallback className="bg-violet-500/10 text-xs font-semibold text-violet-600">
               {user.name.slice(0, 2).toUpperCase()}

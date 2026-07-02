@@ -7,7 +7,7 @@ export function SignInButton() {
   return (
     <Button
       size="sm"
-      className="shrink-0 gap-2 text-xs hover:cursor-pointer"
+      className="shrink-0 gap-2 text-xs cursor-pointer"
       onClick={() => authClient.signIn.social({ provider: "github" })}
     >
       Sign in with GitHub
