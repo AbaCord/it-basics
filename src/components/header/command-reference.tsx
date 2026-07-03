@@ -73,6 +73,11 @@ const SECTIONS: Section[] = [
         win: "notepad <filename>",
         description: "Open a simple text editor",
       },
+      {
+        cmd: "open <source>",
+        win: "start <source>",
+        description: "Open a file or folder"
+      },
     ],
   },
   {

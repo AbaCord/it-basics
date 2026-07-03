@@ -164,9 +164,9 @@ Open \`edit-and-push/about.txt\` in a text editor and fill in your name and the 
     description: `
 Not everything in a project should be committed. API keys, passwords, and some generated files should stay off GitHub.
 
-Git has a mechanism for this: a file called \`.gitignore\`. Any path listed inside it will be ignored, Git won't track it, and it won̈́'t show up when you run \`git status\`.
+Git has a mechanism for this: a file called \`.gitignore\`. Any path listed inside it will be ignored, Git won't track it, and it won't show up when you run \`git status\`.
 
-Inside \`gitignore/\` there's a \`secrets/\` folder containing a fake API key. Create a \`.gitignore\` file in the \`gitignore/\` folder that tells Git to ignore it, then commit and push.
+Inside \`gitignore/\` there's a \`secrets/\` folder containing a fake API key. Create a \`.gitignore\` file in the \`gitignore/\` folder that tells Git to ignore the folder \`secrets\`. Commit and push after.
 
 You can read documentation [here](https://git-scm.com/docs/gitignore) if you want, or search on the internet, if you're not sure what to do.
     `.trim(),
@@ -190,7 +190,7 @@ The stylesheet exists, but it's not where the HTML expects it. Move it to the ri
     genre: "terminal",
     checks: [{ type: "file_exists", path: "missing-image/assets/hero.png" }],
     description: `
-Same project, new problem. The stylesheet is in the right place now, but the page references an image that can't be found.
+Go now to \`missing-image/\`. This is the same project, but a new problem. The stylesheet is in the right place now, but the page references an image that can't be found.
  
 Look at where \`index.html\` expects the image to be, then find where it actually is and move it.
     `.trim(),
