@@ -85,10 +85,15 @@ export const challenges: ChallengeMeta[] = [
     checks: [{ type: "file_exists", path: "find-the-bug/assets/style.css" }],
   },
   {
-    id: "missing-image",
+    id: "missing-images",
     type: "repo",
     genre: "terminal",
-    checks: [{ type: "file_exists", path: "missing-image/assets/hero.png" }],
+    checks: [
+      { type: "file_exists", path: "missing-images/assets/aurora.jpg" },
+      { type: "file_exists", path: "missing-images/assets/fjord.jpg" },
+      { type: "file_exists", path: "missing-images/assets/hero.jpg" },
+      { type: "file_exists", path: "missing-images/assets/mountains.jpg" },
+    ],
   },
   {
     id: "broken-link",
