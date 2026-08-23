@@ -13,7 +13,7 @@ export async function generateMetadata({
   params,
 }: ChallengePageProps): Promise<Metadata> {
   const { id } = await params;
-  const challenge = findChallenge(id);
+  const challenge = await findChallenge(id);
 
   return {
     title: challenge?.title,
@@ -27,7 +27,7 @@ export async function generateMetadata({
 
 export default async function ChallengePage({ params }: ChallengePageProps) {
   const { id } = await params;
-  const challenge = findChallenge(id);
+  const challenge = await findChallenge(id);
 
   if (!challenge) {
     notFound();

@@ -1,6 +1,6 @@
 import { ChallengesGrid } from "@/components/challenges/challenges-grid";
 import { SignInButton } from "@/components/sign-in-button";
-import { challenges } from "@/lib/challenges/meta";
+import { getTranslatedChallenges } from "@/lib/challenges/registry";
 import { getCompletedChallenges } from "@/lib/queries/completion";
 import { getSession } from "@/lib/queries/session";
 import { GitFork, Terminal } from "lucide-react";
@@ -14,6 +14,7 @@ export default async function ChallengesPage() {
     ? await getCompletedChallenges(session.user.id)
     : [];
 
+  const challenges = await getTranslatedChallenges();
   const completedSet = new Set(completed.map((c) => c.challengeId));
 
   const hasForked = completedSet.has("getting-started");
@@ -52,7 +53,7 @@ export default async function ChallengesPage() {
         </div>
       ) : null}
 
-      <ChallengesGrid completedSet={completedSet} />
+      <ChallengesGrid challenges={challenges} completedSet={completedSet} />
     </div>
   );
 }

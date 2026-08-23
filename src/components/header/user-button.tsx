@@ -13,6 +13,7 @@ import { LogOut } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { SignInButton } from "../sign-in-button";
 import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 type User = {
   name: string;
@@ -21,6 +22,7 @@ type User = {
 };
 
 export function UserButton({ user }: { user: User | null }) {
+  const t = useTranslations("UserButton");
   const router = useRouter();
 
   if (!user) {
@@ -65,7 +67,7 @@ export function UserButton({ user }: { user: User | null }) {
           className="text-destructive focus:text-destructive cursor-pointer gap-2"
         >
           <LogOut className="size-3.5" />
-          <span className="text-xs">Sign out</span>
+          <span className="text-xs">{t("signOut")}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
