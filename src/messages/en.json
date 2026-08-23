@@ -1,0 +1,16 @@
+{
+  "ChallengesPage": {
+    "auth": {
+      "title": "Sign in to get started",
+      "description": "Your progress is saved to your GitHub account."
+    },
+    "fork": {
+      "title": "Start by forking the repo",
+      "description": "Challenge 01 walks you through it. All other challenges unlock once it's completed."
+    },
+    "complete": {
+      "title": "All challenges complete.",
+      "description": "Nice work. You've made it through the whole track."
+    }
+  }
+}

@@ -25,8 +25,8 @@ import {
 } from "lucide-react";
 import { Challenge } from "@/lib/challenges/meta";
 import { authClient } from "@/lib/auth-client";
-import { usePathname, useRouter } from "next/navigation";
 import { validateFlagAction, validateRepoAction } from "@/actions/validation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 
 type CheckResult = { passed: boolean; message: string };
 
@@ -218,7 +218,7 @@ export function ChallengeCard({
                 <Lock className="size-3.5 shrink-0" />
                 <span>
                   <button
-                    className="hover:text-foreground underline underline-offset-2 transition-colors cursor-pointer"
+                    className="hover:text-foreground cursor-pointer underline underline-offset-2 transition-colors"
                     onClick={() =>
                       authClient.signIn.social({
                         provider: "github",
@@ -235,7 +235,7 @@ export function ChallengeCard({
               <Button
                 onClick={handleRepoSubmit}
                 disabled={loading}
-                className="gap-2 text-xs cursor-pointer"
+                className="cursor-pointer gap-2 text-xs"
               >
                 {loading ? (
                   <Loader2 className="size-3.5 animate-spin" />

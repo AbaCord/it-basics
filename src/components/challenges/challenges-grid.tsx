@@ -1,9 +1,9 @@
 "use client";
 
+import { Link } from "@/i18n/navigation";
 import { Challenge, challenges } from "@/lib/challenges/meta";
 import { cn } from "@/lib/utils";
 import { Lock, GitFork, Flag, CheckCircle2 } from "lucide-react";
-import Link from "next/link";
 
 type ChallengesGridProps = {
   completedSet: Set<Challenge["id"]>;

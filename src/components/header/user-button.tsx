@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
 import { SignInButton } from "../sign-in-button";
+import { useRouter } from "@/i18n/navigation";
 
 type User = {
   name: string;
@@ -24,9 +24,7 @@ export function UserButton({ user }: { user: User | null }) {
   const router = useRouter();
 
   if (!user) {
-    return (
-      <SignInButton />
-    );
+    return <SignInButton />;
   }
 
   async function handleSignOut() {
