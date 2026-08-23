@@ -1,0 +1,189 @@
+{
+  "ChallengesPage": {
+    "auth": {
+      "title": "Logg inn for å komme i gang",
+      "description": "Fremgangen din lagres på GitHub-kontoen din."
+    },
+    "fork": {
+      "title": "Start med å forke repoet",
+      "description": "Utfordring 01 viser deg hvordan. Alle andre utfordringer låses opp når den er fullført."
+    },
+    "complete": {
+      "title": "Alle utfordringene er fullført.",
+      "description": "Godt jobbet. Du har kommet deg gjennom hele løypa."
+    }
+  },
+  "Challenges": {
+    "getting-started": {
+      "title": "Kom i gang",
+      "description": "# Fork utfordringsrepoet\n\nFør du kan fullføre de resterende utfordringene, trenger du din egen kopi av utfordringsrepoet. Dette lar deg commite arbeidet ditt og pushe løsningene dine til GitHub.\n\n## 1. Fork repoet\n\nKlikk på **fork**-knappen på [utfordringsrepoet](https://github.com/{orgName}/{repoName}):\n\n![Fork-knapp](/github-fork-button.png)\n\nBehold repo-navnet uendret: **{repoName}**, og fjern avmerkingen for «Copy the main branch only».\n\n![Fork-alternativer](/github-fork-options.png)\n\nEtter at du har forket repoet, skal du finne det under GitHub-kontoen din:\n\n![Forket repo under kontoen din](/github-fork-success.png)\n\n## 2. Klon din fork lokalt\n\nKlikk på **Code**-knappen og kopier HTTPS-URL-en:\n\n![GitHub-meny for kloning](/github-url-dropdown.png)\n\nÅpne terminalen og naviger til mappen du vil klone utfordringene til. Erstatt *<folder>* med den absolutte eller relative banen til mappen du ønsker å bruke:\n\n```sh\ncd <folder>\n```\n\nKlon din fork til mappen ved å erstatte *<url>* med lenken du kopierte:\n\n```sh\ngit clone <url>\n```\n\nNår forken din er satt opp, er du klar til å fortsette med resten av utfordringene."
+    },
+    "where-am-i": {
+      "title": "Hvor er jeg?",
+      "description": "Åpne terminalen og naviger til det klonede repoet ditt.\n\nEt sted i `where-am-i/`-mappen ligger det en fil som inneholder et flagg. Bruk terminalen til å finne filen og lese innholdet. Referansepanelet viser kommandoene for å liste opp og lese filer.\n\nSkriv inn flagget nedenfor når du har funnet det."
+    },
+    "hidden-in-plain-sight": {
+      "title": "Gjemt rett foran øynene dine",
+      "description": "Naviger til `hidden-in-plain-sight/`-mappen.\n\nDet ligger mange filer der. Én av dem har flagget i filnavnet.\n\nList opp filene og se nøye etter."
+    },
+    "going-deeper": {
+      "title": "Grav dypere",
+      "description": "`going-deeper/`-mappen inneholder flere nestede mapper.\n\nFlagget er gjemt i en fil et sted nederst i treet. Naviger deg nedover. Hvert nivå gir deg et hint om hvorvidt du skal fortsette."
+    },
+    "the-invisible-ones": {
+      "title": "De usynlige",
+      "description": "Naviger til `the-invisible-ones/`-mappen og list opp innholdet.\n\nDu vil se et par filer, men flagget er ikke i noen av dem. Det finnes en annen fil der som ikke vises som standard.\n\nNoen filer er skjult fra vanlige kataloglister. Referansepanelet viser flagget som gjør dem synlige."
+    },
+    "first-commit": {
+      "title": "Din første commit",
+      "description": "Nå som du kjenner veien rundt i terminalen, er det på tide å begynne å bruke Git.\n\nGit sporer endringer i filer over tid. En **commit** er et lagret øyeblikksbilde, omtrent som et kontrollpunkt du alltid kan gå tilbake til.\n\nI `first-commit/`-mappen skriver du hva du vil i en fil som heter `notes.txt`. Stage den deretter, commit den og push den til GitHub.\n\nEn commit trenger en melding som beskriver hva som ble endret. Et vanlig format er `type: description`, for eksempel `feat: add notes` eller `docs: add readme`. Bruk dette formatet her."
+    },
+    "edit-and-push": {
+      "title": "Rediger og push",
+      "description": "Mesteparten av tiden din med Git vil gå til å redigere eksisterende filer, ikke opprette nye.\n\nÅpne `edit-and-push/about.txt` i et tekstredigeringsprogram og fyll inn navnet ditt og «about»-delen. Lagre filen, og stage, commit og push deretter endringene dine."
+    },
+    "gitignore": {
+      "title": "Hold hemmeligheter hemmelige",
+      "description": "Ikke alt i et prosjekt bør commites. API-nøkler, passord og enkelte genererte filer bør holdes borte fra GitHub.\n\nGit har en mekanisme for dette: en fil som heter `.gitignore`. Alle stier som står oppført i den, blir ignorert. Git sporer dem ikke, og de vises ikke når du kjører `git status`.\n\nI `gitignore/` finnes det en `secrets/`-mappe som inneholder en falsk API-nøkkel. Opprett en `.gitignore`-fil i `gitignore/`-mappen som forteller Git at mappen `secrets` skal ignoreres. Commit og push etterpå.\n\nDu kan lese dokumentasjonen [her](https://git-scm.com/docs/gitignore) hvis du vil, eller søke på nettet hvis du er usikker på hva du skal gjøre."
+    },
+    "find-the-bug": {
+      "title": "Finn feilen",
+      "description": "I `find-the-bug/` finnes det en liten nettside. Les `index.html` og se hva den prøver å laste inn, og se deretter på hva som faktisk finnes.\n\nStilarket finnes, men det ligger ikke der HTML-en forventer det. Flytt det til riktig sted og push endringene dine."
+    },
+    "missing-image": {
+      "title": "Manglende bilde",
+      "description": "Gå nå til `missing-image/`. Dette er det samme prosjektet, men med et nytt problem.\n\nStilarket ligger på riktig sted nå, men siden refererer til et bilde som ikke finnes.\n\nSe hvor `index.html` forventer at bildet skal være, finn ut hvor det faktisk ligger, og flytt det."
+    },
+    "broken-link": {
+      "title": "Ødelagt lenke",
+      "description": "Navigasjonen i `broken-link/index.html` har en lenke til en «About»-side, men hvis du klikker på den, kommer du ingen steder.\n\nFilen finnes, men den har feil navn. Gi den nytt navn slik at det samsvarer med det HTML-en forventer, og commit og push deretter."
+    }
+  },
+  "SignInButton": {
+    "label": "Logg inn med GitHub"
+  },
+  "CommandReference": {
+    "reference": "Referanse",
+    "title": "Kommandoreferanse",
+    "platform": {
+      "mac": "macOS / Linux",
+      "windows": "Windows"
+    },
+    "copy": "Kopier kommando",
+    "sections": {
+      "terminalBasics": {
+        "title": "Grunnleggende terminalkommandoer",
+        "commands": {
+          "pwd": "Vis gjeldende mappe",
+          "ls": "List filer i gjeldende mappe",
+          "ls-a": "List alle filer, inkludert skjulte",
+          "cd-folder": "Gå inn i en mappe",
+          "cd-parent": "Gå ett nivå opp",
+          "mkdir": "Opprett en ny mappe",
+          "touch": "Opprett en tom fil",
+          "echo-write": "Skriv innhold til en fil",
+          "echo-append": "Legg til innhold i en fil",
+          "cat": "Vis filinnhold",
+          "clear": "Tøm terminalen",
+          "mv": "Flytt en fil eller mappe",
+          "rename": "Gi en fil nytt navn",
+          "nano": "Åpne et enkelt tekstredigeringsprogram",
+          "open": "Åpne en fil eller mappe"
+        }
+      },
+      "gitSetup": {
+        "title": "Git — oppsett",
+        "commands": {
+          "user-name": "Angi navnet ditt",
+          "user-email": "Angi e-postadressen din",
+          "init": "Initialiser et nytt repo",
+          "clone": "Klon et eksternt repo"
+        }
+      },
+      "gitDayToDay": {
+        "title": "Git — daglig bruk",
+        "commands": {
+          "status": "Se hva som er endret",
+          "add-all": "Stage alle endringer",
+          "add-file": "Stage en bestemt fil",
+          "commit": "Commit med en melding",
+          "push": "Push commits til GitHub",
+          "pull": "Hent de nyeste endringene",
+          "log": "Vis nylige commits",
+          "diff": "Se endringer som ikke er staged"
+        }
+      },
+      "gitBranches": {
+        "title": "Git — branches",
+        "commands": {
+          "branch": "List branches",
+          "create-branch": "Opprett en ny branch",
+          "switch": "Bytt til en branch",
+          "create-and-switch": "Opprett og bytt i ett steg",
+          "merge": "Flett en branch inn i den nåværende"
+        }
+      },
+      "gitUndoing": {
+        "title": "Git — angre endringer",
+        "commands": {
+          "restore": "Forkast unstaged endringer i en fil",
+          "restore-staged": "Fjern en fil fra staging",
+          "amend": "Rediger den siste commit-meldingen",
+          "revert": "Angre en commit ved å opprette en ny"
+        }
+      }
+    }
+  },
+  "UserButton": {
+    "signOut": "Logg ut"
+  },
+  "ChallengeCard": {
+    "type": {
+      "github": "GitHub",
+      "flag": "Flagg"
+    },
+    "completed": "Fullført",
+    "checkResults": "Kontroller",
+    "signIn": "Logg inn med GitHub",
+    "submit": "for å sende inn",
+    "checking": "Kontrollerer...",
+    "validate": "Valider",
+    "genericError": "Noe gikk galt. Prøv igjen.",
+    "validation": {
+      "notSignedIn": "Ikke logget inn",
+      "challengeNotFound": "Utfordringen ble ikke funnet",
+      "error": "Noe gikk galt. Prøv igjen.",
+      "correct": "Riktig!",
+      "wrongFlag": "Feil flagg, prøv igjen."
+    },
+    "checks": {
+      "fork": {
+        "repoNotFound": "Repoet {repo} ble ikke funnet. Er det offentlig?",
+        "notFork": "{repo} er ikke en fork",
+        "wrongParent": "Repoet må være en fork av {expected}, men er en fork av {actual}.",
+        "verified": "Fork bekreftet."
+      },
+      "file": {
+        "found": "Fant {path}",
+        "missing": "Manglende fil: {path}",
+        "contains": "{path} inneholder forventet innhold",
+        "doesNotContain": "{path} inneholder ikke: {content}",
+        "matches": "{path} samsvarer med mønsteret",
+        "doesNotMatch": "{path} samsvarer ikke med mønsteret: {pattern}"
+      },
+      "commit": {
+        "found": "Fant samsvarende commit: {message}",
+        "noMatch": "Ingen nylig commit-melding samsvarer med: {pattern}"
+      }
+    }
+  },
+  "ChallengesGrid": {
+    "locked": "start med utfordring 01",
+    "startHere": "start her",
+    "forkRepo": "fork repoet",
+    "type": {
+      "repo": "push en commit",
+      "flag": "finn et flagg"
+    }
+  }
+}
