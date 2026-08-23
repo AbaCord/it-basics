@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { UserButton } from "./user-button";
 import { getSession } from "@/lib/queries/session";
 import { CommandReference } from "./command-reference";
+import { LanguageSwitcher } from "./language-switcher";
 
 async function ProgressPill({ userId }: { userId: string }) {
   const completed = await getCompletedChallenges(userId);
@@ -49,6 +50,7 @@ export async function Header() {
             </Suspense>
           )}
           <CommandReference />
+          <LanguageSwitcher />
           <UserButton user={session?.user ?? null} />
         </div>
       </div>
