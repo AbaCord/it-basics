@@ -28,7 +28,6 @@ export async function findChallenge(
   if (!challenge) return;
 
   const translated = await getChallengeTranslation(challenge);
-  console.log(translated.description);
   return translated;
 }
 
