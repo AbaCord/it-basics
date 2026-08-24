@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { Header } from "@/components/header";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { Footer } from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,10 +17,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: { default: "IntroCourse", template: "%s | IntroCourse" },
+  title: { default: "IT Basics", template: "%s | IT Basics" },
   description:
     "A guided introduction to the terminal, Git, GitHub, and developer tools.",
-  applicationName: "IntroCourse",
+  applicationName: "IT Basics",
   keywords: [
     "terminal",
     "git",
@@ -33,19 +36,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  params,
+}: LayoutProps<"/[locale]">) {
+  const { locale } = await params;
+  const messages = await getMessages();
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
     >
-      <body className="min-h-full">
-        <Header />
-        <main className="container mx-auto px-4 py-12 sm:px-6">{children}</main>
+      <body className="flex min-h-full flex-col">
+        <NextIntlClientProvider messages={messages}>
+          <Header />
+          <main className="container mx-auto flex-1 px-4 py-12 sm:px-6">
+            {children}
+          </main>
+          <Footer />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

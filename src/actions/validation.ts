@@ -5,18 +5,29 @@ import { completion } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { CheckResult, runAllChecks } from "@/lib/challenges/checks";
 import { Challenge } from "@/lib/challenges/meta";
-import { findChallenge } from "@/lib/challenges/registry";
+import { findChallengeMeta } from "@/lib/challenges/registry";
 import { headers } from "next/headers";
 
-export async function validateRepoAction(challengeId: Challenge["id"]) {
+type ValidationResult = {
+  passed: boolean;
+  messageKey?: string;
+};
+
+type RepoValidationResult = ValidationResult & {
+  checkResults: CheckResult[];
+};
+
+export async function validateRepoAction(
+  challengeId: Challenge["id"],
+): Promise<RepoValidationResult> {
   const heads = await headers();
   const session = await auth.api.getSession({ headers: heads });
   if (!session)
-    return { passed: false, error: "Not signed in", checkResults: [] };
+    return { passed: false, messageKey: "notSignedIn", checkResults: [] };
 
-  const challenge = findChallenge(challengeId);
+  const challenge = findChallengeMeta(challengeId);
   if (!challenge || challenge.type !== "repo")
-    return { passed: false, error: "Challenge not found", checkResults: [] };
+    return { passed: false, messageKey: "challengeNotFound", checkResults: [] };
 
   const accessToken = await auth.api.getAccessToken({
     body: {
@@ -37,7 +48,7 @@ export async function validateRepoAction(challengeId: Challenge["id"]) {
   } catch (err) {
     return {
       passed: false,
-      error: (err as { message: string }).message,
+      messageKey: "error",
       checkResults: [],
     };
   }
@@ -54,13 +65,16 @@ export async function validateRepoAction(challengeId: Challenge["id"]) {
   return { passed, checkResults };
 }
 
-export async function validateFlagAction(challengeId: string, flag: string) {
+export async function validateFlagAction(
+  challengeId: string,
+  flag: string,
+): Promise<ValidationResult> {
   const session = await auth.api.getSession({ headers: await headers() });
-  if (!session) return { passed: false, message: "Not signed in" };
+  if (!session) return { passed: false, messageKey: "notSignedIn" };
 
-  const challenge = findChallenge(challengeId);
+  const challenge = findChallengeMeta(challengeId);
   if (!challenge || challenge.type !== "flag")
-    return { passed: false, message: "Challenge not found" };
+    return { passed: false, messageKey: "challengeNotFound" };
 
   const passed = flag.trim() === challenge.flag;
 
@@ -73,6 +87,6 @@ export async function validateFlagAction(challengeId: string, flag: string) {
 
   return {
     passed,
-    message: passed ? "Correct!" : "Wrong flag, try again.",
+    messageKey: passed ? "correct" : "wrongFlag",
   };
 }

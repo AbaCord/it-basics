@@ -1,28 +1,33 @@
 "use client";
 
+import { Link } from "@/i18n/navigation";
 import { Challenge, challenges } from "@/lib/challenges/meta";
 import { cn } from "@/lib/utils";
 import { Lock, GitFork, Flag, CheckCircle2 } from "lucide-react";
-import Link from "next/link";
-
-type ChallengesGridProps = {
-  completedSet: Set<Challenge["id"]>;
-};
+import { useTranslations } from "next-intl";
 
 const forkId = challenges[0].id;
 
 const TYPE_CONFIG = {
   repo: {
     icon: GitFork,
-    label: "push a commit",
   },
   flag: {
     icon: Flag,
-    label: "submit a flag",
   },
 } as const;
 
-export function ChallengesGrid({ completedSet }: ChallengesGridProps) {
+type ChallengesGridProps = {
+  challenges: Challenge[];
+  completedSet: Set<Challenge["id"]>;
+};
+
+export function ChallengesGrid({
+  challenges,
+  completedSet,
+}: ChallengesGridProps) {
+  const t = useTranslations("ChallengesGrid");
+
   const hasForked = completedSet.has(forkId);
 
   return (
@@ -43,18 +48,14 @@ export function ChallengesGrid({ completedSet }: ChallengesGridProps) {
             className={cn(
               "group relative flex flex-col rounded-xl border p-5 transition-all duration-200 outline-none",
               "focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2",
-              // default
               !completed &&
                 !locked &&
                 !isFork &&
                 "border-border/60 bg-card hover:border-border hover:bg-muted/30",
-              // fork / getting started
               isFork &&
                 !completed &&
                 "border-amber-500/30 bg-amber-500/3 hover:border-amber-500/50",
-              // completed
               completed && "border-emerald-500/25 bg-emerald-500/3",
-              // locked
               locked && "cursor-default",
             )}
           >
@@ -62,7 +63,7 @@ export function ChallengesGrid({ completedSet }: ChallengesGridProps) {
               <div className="bg-background/70 absolute inset-0 z-10 flex items-center justify-center rounded-xl backdrop-blur-[2px]">
                 <div className="text-muted-foreground/60 flex items-center gap-1.5 text-xs">
                   <Lock className="size-3" />
-                  start with challenge 01
+                  {t("locked")}
                 </div>
               </div>
             )}
@@ -84,7 +85,7 @@ export function ChallengesGrid({ completedSet }: ChallengesGridProps) {
                 <CheckCircle2 className="mt-0.5 size-4 text-emerald-500" />
               ) : isFork ? (
                 <span className="mt-1 text-[10px] tracking-widest text-amber-500/70 uppercase">
-                  start here
+                  {t("startHere")}
                 </span>
               ) : null}
             </div>
@@ -116,7 +117,7 @@ export function ChallengesGrid({ completedSet }: ChallengesGridProps) {
                       : "text-muted-foreground/50",
                   )}
                 >
-                  {isFork ? "fork the repo" : typeConfig.label}
+                  {isFork ? t("forkRepo") : t(`type.${c.type}`)}
                 </span>
               </div>
             )}

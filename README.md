@@ -1,4 +1,4 @@
-# Intro Course
+# IT Basics
 
 ## Getting Started
 
@@ -12,8 +12,8 @@
 1. Clone the repository:
 
    ```sh
-   git clone git@github.com:AbaCord/intro-course.git
-   cd intro-course
+   git clone git@github.com:AbaCord/it-basics.git
+   cd it-basics
    ```
 
 2. Install dependencies:
@@ -36,7 +36,7 @@
    Once PostgreSQL is running, create a database.
 
    ```sh
-   createdb intro_course
+   createdb it_basics
    ```
 
 5. Update the values in `.env`:
@@ -57,7 +57,7 @@
      - The format looks like this:
 
        ```text
-       postgres://<username>:<password>@localhost:5432/intro_course
+       postgres://<username>:<password>@localhost:5432/it_basics
        ```
 
      - Replace `<username>` with your postgres username.

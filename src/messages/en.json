@@ -1,0 +1,200 @@
+{
+  "ChallengesPage": {
+    "auth": {
+      "title": "Sign in to get started",
+      "description": "Your progress is saved to your GitHub account."
+    },
+    "fork": {
+      "title": "Start by forking the repo",
+      "description": "Challenge 01 walks you through it. All other challenges unlock once it's completed."
+    },
+    "complete": {
+      "title": "All challenges complete.",
+      "description": "Nice work. You've made it through the whole track."
+    }
+  },
+  "Challenges": {
+    "getting-started": {
+      "title": "Getting Started",
+      "description": "# Forking the Challenge Repository\n\nBefore you can complete the remaining challenges, you need your own copy of the challenge repository. This allows you to commit your work and push your solutions to GitHub.\n\n## 1. Fork the repository\n\nClick the **fork** button on the [challenge repository](https://github.com/{orgName}/{repoName}):\n\n![Fork button](/github-fork-button.png)\n\nKeep the repository name unchanged: **{repoName}**, and uncheck the \"Copy the main branch only\" option.\n\n![Fork options](/github-fork-options.png)\n\nAfter forking, you should see the repository under your GitHub account:\n\n![Forked repository under your account](/github-fork-success.png)\n\n## 2. Clone your fork locally\n\nClick the **Code** button and copy the HTTPS URL:\n\n![GitHub clone URL dropdown](/github-url-dropdown.png)\n\nInside your terminal, navigate to the folder you want to clone the challenges into. Replace *<folder>* with the absolute or relative path of your desired folder:\n\n```sh\ncd <folder>\n```\n\nClone your fork into the folder by replacing *<url>* with the link you copied:\n\n```sh\ngit clone <url>\n```\n\nOnce your fork is set up, you'll be ready to continue with the rest of the challenges."
+    },
+    "where-am-i": {
+      "title": "Where am I?",
+      "description": "Open your terminal and navigate into your cloned repo.\n\nSomewhere in the `where-am-i/` folder there's a file containing a flag. Use the terminal to find it and read its contents. Once you find the flag, enter it below.\n\nThe following commands may be useful:\n\n**macOS + Linux**\n\n- `cd [directory]` - short for **change directory**, moves you into another directory.\n  - `cd where-am-i` moves into the `where-am-i/` directory.\n  - `cd ..` moves up to the parent directory.\n  - Running `cd` without an argument returns you to your home directory.\n\n- `ls [directory]` - short for **list**, lists files and directories inside a directory.\n  - `ls` with no arguments lists the contents of the current directory.\n  - `ls <directory>` lists the contents of the specified directory.\n\n- `cat <file>` - short for **concatenate**, combines the contents of files and prints them to the terminal. When used with a single file, it simply prints that file's contents.\n  - `cat <file>` requires a file as an argument.\n  - You can provide multiple files, such as `cat file1.txt file2.txt`, to print them one after another.\n\n**Windows**\n\n- `cd [directory]` - short for **change directory**, moves you into another directory.\n  - `cd where-am-i` moves into the `where-am-i/` directory.\n  - `cd ..` moves up to the parent directory.\n  - Running `cd` without an argument displays your current directory.\n\n- `dir [directory]` - short for **directory**, lists files and directories in the current directory\n  - `dir` with no argument lists the contents of the current directory.\n  - `dir <directory>` lists the contents of the specified directory.\n\n- `type <file>` - prints the contents of a file to the terminal\n  - `type <file>` requires a file as an argument.\n"
+    },
+    "hidden-in-plain-sight": {
+      "title": "Hidden in plain sight",
+      "description": "Navigate into the `hidden-in-plain-sight/` folder.\n\nThere are many files in this folder, and one of them has the flag hidden in its filename.\n\nList the files and look carefully.\n"
+    },
+    "going-deeper": {
+      "title": "Going deeper",
+      "description": "The `going-deeper/` folder contains several nested directories.\n\nThe flag is hidden inside a file somewhere at the bottom of the tree. Navigate your way down, one level at a time. Each level contains a clue telling you whether to keep going.\n\nList the contents of each directory and follow the clues until you find the flag.\n"
+    },
+    "the-invisible-ones": {
+      "title": "The invisible ones",
+      "description": "Navigate into the `the-invisible-ones/` folder and list its contents.\n\nYou'll see a couple of files, but the flag isn't in any of them. There's another file in the folder that doesn't appear in the default directory listing.\n\nSome files are **hidden files**. On macOS and Linux, hidden files have a name that starts with a `.` (dot), such as `.hidden-file`. They are still part of the directory, but are normally left out of standard directory listings. They are often used for configuration files or other files that users don't need to see during normal use.\n\nOn macOS and Linux, add the `-a` flag to `ls` to show hidden files. On Windows, use the `/a` option with `dir`.\n\nFor example:\n\n- `ls -a` - lists all files, including hidden files.\n- `dir /a` - lists all files, including hidden files.\n\nFind the hidden file and read its contents to get the flag.\n"
+    },
+    "first-commit": {
+      "title": "Your first commit",
+      "description": "Now that you know your way around the terminal, it's time to start using Git.\n\nGit tracks changes to files over time. A **commit** is a saved snapshot of your project at a specific point in time, like a checkpoint you can always go back to.\n\nInside the `first-commit/` folder, create a file called `notes.txt` and write anything you like in it.\n\nYou can use `echo` to write text directly into a file:\n\n- `echo \"<text>\" > <file>` - prints `<text>` and redirects the output into the specified file.\n  - For example, `echo \"Hello, Git!\" > notes.txt` creates `notes.txt` containing `Hello, Git!`.\n  - If the file already exists, `>` **overwrites** its contents.\n  - Use `>>` instead of `>` to **append** text to the end of an existing file.\n\nAfter creating the file, stage, commit, and push your changes to GitHub.\nThen stage, commit, and push your changes to GitHub.\n\nA commit needs a message describing what changed. We'll use the **Conventional Commits** style:\n\n- `feat: add notes` - `feat` is used when adding a new feature.\n- `docs: add readme` - `docs` is used for documentation changes.\n\nFor this challenge, use the format `type: description`, where `type` and `description` are placeholders. Replace them with an appropriate type and a short description of your change.\n\nYou can find the full [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/) here.\n\nThe following commands may be useful:\n\n- `git status` - shows the current state of your repository, including which files have been changed or staged.\n- `git add <file>` - **stages** a file, marking it to be included in the next commit.\n  - `git add <file>` stages a specific file.\n  - `git add <file1> <file2>` stages multiple specific files.\n  - `git add .` stages all changes in the current directory and its subdirectories.\n  - `git add -A` stages all changes in the entire repository, including changes outside the current directory.\n- `git commit -m \"<message>\"` - creates a **commit** containing the staged changes. The `-m` option lets you provide the commit message directly.\n- `git push` - uploads your local commits to the remote repository on GitHub.\n"
+    },
+    "edit-and-push": {
+      "title": "Edit and push",
+      "description": "Most of your time with Git will be spent editing existing files, not creating new ones.\n\nOpen `edit-and-push/about.txt` in a text editor and fill in your name and the about section. Save the file, then stage, commit, and push your changes.\n\nThe following commands may be useful:\n\n**macOS + Linux**\n\n- `nano <file>` - opens a file in the **nano** terminal text editor.\n  - Make your changes, then press `Ctrl+O` to save and `Ctrl+X` to exit nano.\n\n**Windows**\n\n- `notepad <file>` - opens a file in Windows Notepad.\n  - Save the file in Notepad when you're done.\n"
+    },
+    "gitignore": {
+      "title": "Keep secrets secret",
+      "description": "Not every file in a project should be committed. API keys, passwords, and generated files are common examples of files you don't want Git to track.\n\nGit has a mechanism for this: a file called `.gitignore`. It contains patterns that tell Git which files and directories to ignore.\n\nInside `gitignore/`, create a `secrets/` folder and a file inside it called `api-key.txt`. Put anything you like in the file; pretend it contains a secret API key.\n\nNow run:\n\n```bash\ngit status\n```\n\nYou should see `secrets/` listed as an untracked directory.\n\nYour goal is to create a `.gitignore` file that tells Git to ignore the `secrets/` folder.\n\nOnce you've created it, run `git status` again and check that `secrets/` is no longer shown as untracked.\n\nWhen you've confirmed that it works, stage, commit, and push your `.gitignore` file.\n\n> **Stuck?** It's completely normal to look things up when learning Git. You can use Git's built-in help with commands such as `git help gitignore`, or search the internet for the problem you're trying to solve.\n\nYou can also read the [Git documentation](https://git-scm.com/docs/gitignore) for the `.gitignore` syntax.\n"
+    },
+    "find-the-bug": {
+      "title": "Find the bug",
+      "description": "In `find-the-bug/` there's a small webpage. The page is broken, and your job is to figure out why.\n\nStart by opening `index.html` and looking at what files the page is trying to load. You don't need to know HTML to do this: look for references to other files, such as stylesheets, images, or scripts.\n\nYou can also open the page in your browser to see what it currently looks like. From inside the `find-the-bug/` directory, you can use:\n\n```bash\n# macOS\nopen index.html\n\n# Linux\nxdg-open index.html\n\n# Windows\nstart index.html\n```\n\nLook at the page in your browser, then compare what `index.html` expects with the files that are actually present in the repository.\n\nThe following commands may be useful:\n\n**macOS + Linux**\n\n- `mv <source> <destination>` — moves a file or directory from one location to another.\n  - For example, `mv old/file.txt new/file.txt` moves `file.txt` into the `new/` directory.\n\n**Windows**\n\n- `move <source> <destination>` — moves a file or directory from one location to another.\n  - For example, `move old\\file.txt new\\file.txt` moves `file.txt` into the `new` directory.\n\nThis is the first of three challenges involving this webpage. Fix only the problem described in this challenge; the page will still have other problems afterward.\n"
+    },
+    "missing-images": {
+      "title": "Missing images",
+      "description": "Go to `missing-images/`. This is the same project, but a new problem.\n\nThe stylesheet is in the right place now, but the page references multiple images that can't be found.\n\nLook at what the page tries to load and identify the image files it references. You don't need to know HTML or CSS to do this: look for references to image files, such as `.png`, `.jpg`, or `.svg`.\n\nYou can search for these references using `grep` or `findstr`. If you know which file contains the reference, you can search that file directly. You can also search recursively through the entire project, which is useful when you don't know which files to look inside.\n\n**macOS + Linux:**\n\n- `grep \"<pattern>\" <file>` - searches for text or a pattern inside a file.\n  - For example, `grep \"hello\" index.html` finds lines containing `hello` in `index.html`.\n- `grep -r \"<pattern>\" <directory>` - searches recursively through a directory and all of its files.\n  - For example, `grep -r \"hello\" .` searches the entire project for lines containging `hello`.\n\n**Windows:**\n\n- `findstr \"<pattern>\" <file>` - searches for text or a pattern inside a file.\n  - For example, `findstr \"hello\" index.html` finds lines containing `hello` in `index.html`.\n  - `findstr /s \"<pattern>\" <directory>\\*` - searches recursively through files in a directory and its subdirectories.\n  - For example, `findstr /s \"hello\" *` searches the entire project for lines containing `hello`.\n\nThen explore the project to find where the images are actually located.\n\nThe following command may be useful:\n\n**macOS + Linux:**\n\n- `mv <source> <destination>` - moves files or directories to another location.\n  - You can use `*` as a wildcard to match multiple files.\n  - For example, `mv <path>/* <destination>` moves all files inside the `<path>` directory into the destination directory.\n\n**Windows:**\n\n- `move <source> <destination>` - moves files or directories to another location.\n  - You can use `*` as a wildcard to match multiple files.\n  - For example, `move <path>\\* <destination>` moves all files inside the `<path>` directory into the destination directory.\n\nThis is the second of three challenges involving this webpage. Fix only the problem described in this challenge; there will still be another problem afterward.\n"
+    },
+    "broken-link": {
+      "title": "Broken link",
+      "description": "The navigation in `broken-link/index.html` contains a link to an About page, but clicking it won't take you anywhere.\n\nThe file exists, but it has the wrong name. Open `index.html` and look at what filename the link expects. Then find the corresponding file and rename it to match.\n\nThe following command may be useful:\n\n**macOS + Linux:**\n\n- `mv <source> <destination>` - moves or renames a file or directory.\n  - To rename a file, use its current name as the source and its new name as the destination.\n\n**Windows:**\n\n- `ren <old-name> <new-name>` - renames a file or directory.\n\nOnce you've renamed the file, commit and push your changes.\n"
+    },
+    "time-traveler": {
+      "title": "Time Traveler",
+      "description": "Git doesn't just track your current files, it remembers every version of every file that has ever been committed, even ones that have since been deleted, and every message written along the way.\n\nAt some point, a file appeared inside `time-traveler/` and then disappeared again. Dig through the project's history to find out what happened to it.\n\nThe flag for the challenge isn't sitting in one place, you'll need to piece it together from two different parts of the history.\n\nSome commands that might help:\n\n- `git log` - shows the commit history: messages, authors, and a unique hash for each commit. Read commit messages carefully, they don't always tell the whole story, but sometimes they tell you more than intended.\n- `git log --oneline -- <path>` - shows only the commits that touched a specific file or folder.\n- `git show <commit-hash>` - shows exactly what was added or removed in a specific commit.\n- `git show <commit-hash>:<path>` - shows the full contents of a file exactly as it was at that commit, even if the file doesn't exist anymore today.\n"
+    },
+    "system-diagnostics": {
+      "title": "System Diagnostics",
+      "description": "A small inventory application crashed at some point last week, and it left behind diagnostic logs somewhere inside the `system-diagnostics/` folder. There are quite a few logs from different parts of the system, spread across several levels of directories, so finding the right one will take some searching.\n\nThe logs contain normal messages as well as crash reports. Crash reports follow a format similar to this:\n\n[2026-08-17 03:12:47] Crash: \\<message>\nTraceback (most recent call last):\nFile \"\\<filename>\", line \\<number>, in \\<function>\n\\<expression>\nFile \"\\<filename>\", line \\<number>, in \\<function>\n\\<expression>\n\\<error-type>: \\<error-message>\n\nThe crash you're looking for happened on a **Wednesday**, around the time most people are heading out for lunch. The timestamps don't tell you the day of the week directly, so you'll need to work that out yourself.\n\nOnce you've found the correct crash, look at its traceback and find the line where the error actually happened. There may be several `line X` references in a crash report, but the last one points to the operation that caused the crash.\n\nThen open that file and read that exact line. You'll need to look around it to understand what caused the error.\n\nThe following commands may help:\n\n**macOS + Linux**\n\n- `grep -rn \"<pattern>\" <directory>` - search recursively through the directory, printing all lines that match along with their line number in their file.\n- `date -d \"<date>\" +%A` - prints the day of the week for a given date, e.g. `date -d \"2026-05-04\" +%A`.\n- `sed -n '<A>,<B>p' <file>` - prints lines `<A>` to `<B>` in `<file>`.\n- `echo \"<base64-text>\" | base64 -d` - decodes Base64-encoded text back into plain text. E.g. `echo \"SGVsbG8sIFdvcmxkIQ==\" | base64 -d` outputs `Hello, World!`\n\n**Windows (cmd)**\n\n- `findstr /S /N \"<pattern>\" <directory>` - search recursively through the directory, printing all lines that match along with their line number in their file.\n\n**Windows (Powershell)**\n\n- `Get-ChildItem <directory> -Recurse -File | Select-String \"<pattern>\"` - search recursively through the directory, printing all lines that match along with their line number in their file.\n- `Get-Date \"<date>\" -Format dddd` - prints the day of the week for a given date.\n- `Get-Content <file> | Select-Object -Skip <A> -First <B>` - prints lines `<A> + 1` to `<A> + 1 + <B>` in `<file>`.\n- `[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(\"<text>\"))` - decodes Base64-encoded text.\n"
+    }
+  },
+  "SignInButton": {
+    "label": "Sign in with GitHub"
+  },
+  "CommandReference": {
+    "reference": "Reference",
+    "title": "Command reference",
+    "platform": {
+      "mac": "macOS / Linux",
+      "windows": "Windows"
+    },
+    "copy": "Copy command",
+    "sections": {
+      "terminalBasics": {
+        "title": "Terminal basics",
+        "commands": {
+          "pwd": "Print current directory",
+          "ls": "List files in current directory",
+          "ls-a": "List all files including hidden",
+          "cd-folder": "Move into a folder",
+          "cd-parent": "Go up one level",
+          "mkdir": "Create a new folder",
+          "touch": "Create an empty file",
+          "echo-write": "Write content into a file",
+          "echo-append": "Append content to a file",
+          "cat": "Print file contents",
+          "clear": "Clear the terminal",
+          "mv": "Move a file or folder",
+          "rename": "Rename a file",
+          "nano": "Open a simple text editor",
+          "open": "Open a file or folder"
+        }
+      },
+      "gitSetup": {
+        "title": "Git - setup",
+        "commands": {
+          "user-name": "Set your name",
+          "user-email": "Set your email",
+          "init": "Initialise a new repo",
+          "clone": "Clone a remote repo"
+        }
+      },
+      "gitDayToDay": {
+        "title": "Git — day to day",
+        "commands": {
+          "status": "See what's changed",
+          "add-all": "Stage all changes",
+          "add-file": "Stage a specific file",
+          "commit": "Commit with a message",
+          "push": "Push commits to GitHub",
+          "pull": "Pull latest changes",
+          "log": "View recent commits",
+          "diff": "See unstaged changes"
+        }
+      },
+      "gitBranches": {
+        "title": "Git — branches",
+        "commands": {
+          "branch": "List branches",
+          "create-branch": "Create a new branch",
+          "switch": "Switch to a branch",
+          "create-and-switch": "Create and switch in one step",
+          "merge": "Merge a branch into current"
+        }
+      },
+      "gitUndoing": {
+        "title": "Git — undoing things",
+        "commands": {
+          "restore": "Discard unstaged changes to a file",
+          "restore-staged": "Unstage a file",
+          "amend": "Edit the last commit message",
+          "revert": "Undo a commit by creating a new one"
+        }
+      }
+    }
+  },
+  "UserButton": {
+    "signOut": "Sign out"
+  },
+  "ChallengeCard": {
+    "type": {
+      "github": "GitHub",
+      "flag": "Flag"
+    },
+    "completed": "Completed",
+    "checkResults": "Checks",
+    "signIn": "Sign in with GitHub",
+    "submit": "to submit",
+    "checking": "Checking...",
+    "validate": "Validate",
+    "genericError": "Something went wrong. Try again.",
+    "validation": {
+      "notSignedIn": "Not signed in",
+      "challengeNotFound": "Challenge not found",
+      "error": "Something went wrong. Try again.",
+      "correct": "Correct!",
+      "wrongFlag": "Wrong flag, try again."
+    },
+    "checks": {
+      "fork": {
+        "repoNotFound": "Repo {repo} not found. Is it public?",
+        "notFork": "{repo} is not a fork",
+        "wrongParent": "Repo must be a fork of {expected}, got {actual}.",
+        "verified": "Fork verified."
+      },
+      "file": {
+        "found": "Found {path}",
+        "missing": "Missing file: {path}",
+        "contains": "{path} contains expected content",
+        "doesNotContain": "{path} does not contain: {content}",
+        "matches": "{path} matches pattern",
+        "doesNotMatch": "{path} does not match pattern: {pattern}"
+      },
+      "commit": {
+        "found": "Fond matching commit: {message}",
+        "noMatch": "No recent commit message matches: {pattern}"
+      }
+    }
+  },
+  "ChallengesGrid": {
+    "locked": "start with challenge 01",
+    "startHere": "start here",
+    "forkRepo": "fork the repo",
+    "type": {
+      "repo": "push a commit",
+      "flag": "submit a flag"
+    }
+  },
+  "Footer": {
+    "label": "Made by AbaCord"
+  }
+}

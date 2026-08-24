@@ -25,12 +25,14 @@ import {
 } from "lucide-react";
 import { Challenge } from "@/lib/challenges/meta";
 import { authClient } from "@/lib/auth-client";
-import { usePathname, useRouter } from "next/navigation";
 import { validateFlagAction, validateRepoAction } from "@/actions/validation";
-
-type CheckResult = { passed: boolean; message: string };
+import { usePathname, useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
+import { CheckResult } from "@/lib/challenges/checks";
 
 function ChallengeTypeBadge({ type }: { type: Challenge["type"] }) {
+  const t = useTranslations("ChallengeCard");
+
   return (
     <Badge
       variant="outline"
@@ -46,25 +48,29 @@ function ChallengeTypeBadge({ type }: { type: Challenge["type"] }) {
       ) : (
         <Flag className="size-3" />
       )}
-      {type === "repo" ? "GitHub" : "Flag"}
+      {type === "repo" ? t("type.github") : t("type.flag")}
     </Badge>
   );
 }
 
 function CompletedBadge() {
+  const t = useTranslations("ChallengeCard");
+
   return (
     <Badge className="gap-1.5 border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/10 dark:text-emerald-400">
       <CheckCircle2 className="size-3.5" />
-      Completed
+      {t("completed")}
     </Badge>
   );
 }
 
 function CheckResultsList({ results }: { results: CheckResult[] }) {
+  const t = useTranslations("ChallengeCard");
+
   return (
     <div className="border-border bg-muted/40 space-y-2 rounded-md border p-3">
       <p className="text-muted-foreground text-[10px] tracking-widest uppercase">
-        Checks
+        {t("checkResults")}
       </p>
       <ul className="space-y-1.5">
         {results.map((r, i) => (
@@ -82,7 +88,7 @@ function CheckResultsList({ results }: { results: CheckResult[] }) {
                   : "text-destructive",
               )}
             >
-              {r.message}
+              {t(`checks.${r.messageKey}`, r.messageParams)}
             </span>
           </li>
         ))}
@@ -102,6 +108,7 @@ export function ChallengeCard({
   isCompleted,
   isLoggedIn,
 }: ChallengeCardProps) {
+  const t = useTranslations("ChallengeCard");
   const router = useRouter();
 
   const pathname = usePathname();
@@ -118,9 +125,8 @@ export function ChallengeCard({
     setCheckResults([]);
     try {
       const result = await validateRepoAction(challenge.id);
-      console.table(result);
-      if (result.error) {
-        setError(result.error);
+      if (result.messageKey) {
+        setError(t(`validation.${result.messageKey}`));
         return;
       }
       setCheckResults(result.checkResults ?? []);
@@ -129,7 +135,7 @@ export function ChallengeCard({
         router.refresh();
       }
     } catch {
-      setError("Something went wrong. Try again.");
+      setError(t("genericError"));
     } finally {
       setLoading(false);
     }
@@ -144,9 +150,11 @@ export function ChallengeCard({
       if (result.passed) {
         setCompleted(true);
         router.refresh();
-      } else setError(result.message);
+      } else if (result.messageKey) {
+        setError(t(`validation.${result.messageKey}`));
+      }
     } catch {
-      setError("Something went wrong, Try again.");
+      setError(t("genericError"));
     } finally {
       setLoading(false);
     }
@@ -218,7 +226,7 @@ export function ChallengeCard({
                 <Lock className="size-3.5 shrink-0" />
                 <span>
                   <button
-                    className="hover:text-foreground underline underline-offset-2 transition-colors cursor-pointer"
+                    className="hover:text-foreground cursor-pointer underline underline-offset-2 transition-colors"
                     onClick={() =>
                       authClient.signIn.social({
                         provider: "github",
@@ -226,23 +234,23 @@ export function ChallengeCard({
                       })
                     }
                   >
-                    Sign in with GitHub
+                    {t("signIn")}
                   </button>{" "}
-                  to submit
+                  {t("submit")}
                 </span>
               </div>
             ) : challenge.type === "repo" ? (
               <Button
                 onClick={handleRepoSubmit}
                 disabled={loading}
-                className="gap-2 text-xs cursor-pointer"
+                className="cursor-pointer gap-2 text-xs"
               >
                 {loading ? (
                   <Loader2 className="size-3.5 animate-spin" />
                 ) : (
                   <GitFork className="size-3.5" />
                 )}
-                {loading ? "Checking…" : "Validate"}
+                {loading ? t("checking") : t("validate")}
               </Button>
             ) : (
               <Input

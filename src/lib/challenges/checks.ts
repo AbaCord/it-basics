@@ -2,7 +2,8 @@ import { GITHUB_API, ORG_NAME, REPO_NAME } from "@/constants";
 
 export type CheckResult = {
   passed: boolean;
-  message: string;
+  messageKey: string;
+  messageParams?: Record<string, string>;
 };
 
 export type ForkExistsCheck = {
@@ -76,18 +77,24 @@ export async function fetchCommits(
   return json.map((c) => ({ message: c.commit.message }));
 }
 
-export async function verifyFork(owner: string, accessToken: string) {
+export async function verifyFork(
+  owner: string,
+  accessToken: string,
+): Promise<CheckResult> {
   const url = `${GITHUB_API}/repos/${owner}/${REPO_NAME}`;
   const res = await fetch(url, { headers: githubHeaders(accessToken) });
 
   if (res.status === 404) {
     return {
       passed: false,
-      message: `Repo ${owner}/${REPO_NAME} not found. Is it public?`,
+      messageKey: "fork.repoNotFound",
+      messageParams: {
+        repo: `${owner}/${REPO_NAME}`,
+      },
     };
   }
   if (!res.ok) {
-    return { passed: false, message: `GitHub api error ${res.status}` };
+    throw new Error(`GitHub API error ${res.status}`);
   }
 
   const json = (await res.json()) as {
@@ -98,7 +105,13 @@ export async function verifyFork(owner: string, accessToken: string) {
   };
 
   if (!json.fork) {
-    return { passed: false, message: `${owner}/${REPO_NAME} is not a fork.` };
+    return {
+      passed: false,
+      messageKey: "fork.notFork",
+      messageParams: {
+        repo: `${owner}/${REPO_NAME}`,
+      },
+    };
   }
 
   const actualParent = json.parent?.full_name ?? "";
@@ -107,14 +120,22 @@ export async function verifyFork(owner: string, accessToken: string) {
   if (actualParent.toLowerCase() !== expectedParent.toLowerCase()) {
     return {
       passed: false,
-      message: `Repo must be a fork of ${expectedParent}, got ${actualParent}.`,
+      messageKey: "fork.wrongParent",
+      messageParams: {
+        expected: expectedParent,
+        actual: actualParent,
+      },
     };
   }
 
-  return { passed: true, message: "Fork verified." };
+  return { passed: true, messageKey: "fork.verified" };
 }
 
-async function runCheck(check: RepoCheck, owner: string, accessToken: string) {
+async function runCheck(
+  check: RepoCheck,
+  owner: string,
+  accessToken: string,
+): Promise<CheckResult> {
   switch (check.type) {
     case "fork_exists":
       return verifyFork(owner, accessToken);
@@ -122,32 +143,76 @@ async function runCheck(check: RepoCheck, owner: string, accessToken: string) {
     case "file_exists": {
       const content = await fetchFileContent(owner, check.path, accessToken);
       return content !== null
-        ? { passed: true, message: `Found ${check.path}` }
-        : { passed: false, message: `Missing file: ${check.path}` };
+        ? {
+            passed: true,
+            messageKey: "file.found",
+            messageParams: {
+              path: check.path,
+            },
+          }
+        : {
+            passed: false,
+            messageKey: "file.missing",
+            messageParams: {
+              path: check.path,
+            },
+          };
     }
 
     case "file_contains": {
       const content = await fetchFileContent(owner, check.path, accessToken);
       if (content === null)
-        return { passed: false, message: `Missing file: ${check.path}` };
+        return {
+          passed: false,
+          messageKey: "file.missing",
+          messageParams: {
+            path: check.path,
+          },
+        };
       return content.includes(check.contains)
-        ? { passed: true, message: `${check.path} contains expected content` }
+        ? {
+            passed: true,
+            messageKey: "file.contains",
+            messageParams: {
+              path: check.path,
+            },
+          }
         : {
             passed: false,
-            message: `${check.path} does not contain: ${check.contains}`,
+            messageKey: "file.doesNotContain",
+            messageParams: {
+              path: check.path,
+              content: check.contains,
+            },
           };
     }
 
     case "file_matches": {
       const content = await fetchFileContent(owner, check.path, accessToken);
       if (content === null)
-        return { passed: false, message: `Missing file: ${check.path}` };
+        return {
+          passed: false,
+          messageKey: "file.missing",
+          messageParams: {
+            path: check.path,
+          },
+        };
       const regex = new RegExp(check.pattern);
       return regex.test(content)
-        ? { passed: true, message: `${check.path} matches pattern` }
+        ? {
+            passed: true,
+            messageKey: "file.matches",
+            messageParams: {
+              path: check.path,
+            },
+          }
         : {
             passed: false,
-            message: `${check.path} does not match pattern: ${check.pattern}`,
+            messageKey: "file.doesNotMatch",
+            messageParams: {
+              path: check.path,
+              pattern: check.pattern,
+            },
           };
     }
 
@@ -158,11 +223,17 @@ async function runCheck(check: RepoCheck, owner: string, accessToken: string) {
       return match
         ? {
             passed: true,
-            message: `Found matching commit: ${match.message}`,
+            messageKey: "commit.found",
+            messageParams: {
+              message: match.message,
+            },
           }
         : {
             passed: false,
-            message: `No recent commit message matches: ${check.pattern}`,
+            messageKey: "commit.noMatch",
+            messageParams: {
+              pattern: check.pattern,
+            },
           };
     }
   }
