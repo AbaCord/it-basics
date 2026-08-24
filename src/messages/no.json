@@ -57,6 +57,10 @@
     "broken-link": {
       "title": "Ødelagt lenke",
       "description": "Navigasjonen i `broken-link/index.html` inneholder en lenke til en About-side, men hvis du klikker på den, kommer du ingen steder.\n\nFilen finnes, men den har feil navn. Åpne `index.html` og se hvilket filnavn lenken forventer. Finn deretter den tilsvarende filen og gi den riktig navn.\n\nFølgende kommando kan være nyttig:\n\n**macOS + Linux:**\n\n- `mv <kilde> <destinasjon>` - flytter eller gir nytt navn til en fil eller mappe.\n  - For å gi en fil nytt navn, bruker du det nåværende navnet som kilde og det nye navnet som destinasjon.\n\n**Windows:**\n\n- `ren <gammelt-navn> <nytt-navn>` - gir en fil eller mappe nytt navn.\n\nNår du har gitt filen riktig navn, skal du committe og pushe endringene dine.\n"
+    },
+    "time-traveler": {
+      "title": "Tidsreisende",
+      "description": "Git sporer ikke bare de nåværende filene dine, men husker hver versjon av hver fil som noen gang har blitt committet, også filer som siden har blitt slettet, og hver melding som har blitt skrevet underveis.\n\nPå et tidspunkt dukket det opp en fil inne i `time-traveler/`, og så forsvant den igjen. Gå gjennom prosjektets historikk for å finne ut hva som skjedde med den.\n\nFlagget for utfordringen ligger ikke på ett sted, du må sette det sammen fra to forskjellige deler av historikken.\n\nNoen kommandoer som kan være nyttige:\n\n- `git log` - viser commit-historikken: meldinger, forfattere og en unik hash for hver commit. Les commit-meldingene nøye, de forteller ikke alltid hele historien, men noen ganger forteller de mer enn de egentlig burde.\n- `git log --oneline -- <path>` - viser bare commitene som har gjort endringer i en bestemt fil eller mappe.\n- `git show <commit-hash>` - viser nøyaktig hva som ble lagt til eller fjernet i en bestemt commit.\n- `git show <commit-hash>:<path>` - viser hele innholdet i en fil slik den var på det tidspunktet commiten ble gjort, selv om filen ikke finnes lenger.\n"
     }
   },
   "SignInButton": {

@@ -57,6 +57,10 @@
     "broken-link": {
       "title": "Broken link",
       "description": "The navigation in `broken-link/index.html` contains a link to an About page, but clicking it won't take you anywhere.\n\nThe file exists, but it has the wrong name. Open `index.html` and look at what filename the link expects. Then find the corresponding file and rename it to match.\n\nThe following command may be useful:\n\n**macOS + Linux:**\n\n- `mv <source> <destination>` - moves or renames a file or directory.\n  - To rename a file, use its current name as the source and its new name as the destination.\n\n**Windows:**\n\n- `ren <old-name> <new-name>` - renames a file or directory.\n\nOnce you've renamed the file, commit and push your changes.\n"
+    },
+    "time-traveler": {
+      "title": "Time Traveler",
+      "description": "Git doesn't just track your current files, it remembers every version of every file that has ever been committed, even ones that have since been deleted, and every message written along the way.\n\nAt some point, a file appeared inside `time-traveler/` and then disappeared again. Dig through the project's history to find out what happened to it.\n\nThe flag for the challenge isn't sitting in one place, you'll need to piece it together from two different parts of the history.\n\nSome commands that might help:\n\n- `git log` - shows the commit history: messages, authors, and a unique hash for each commit. Read commit messages carefully, they don't always tell the whole story, but sometimes they tell you more than intended.\n- `git log --oneline -- <path>` - shows only the commits that touched a specific file or folder.\n- `git show <commit-hash>` - shows exactly what was added or removed in a specific commit.\n- `git show <commit-hash>:<path>` - shows the full contents of a file exactly as it was at that commit, even if the file doesn't exist anymore today.\n"
     }
   },
   "SignInButton": {

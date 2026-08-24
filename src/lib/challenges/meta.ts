@@ -101,4 +101,10 @@ export const challenges: ChallengeMeta[] = [
     genre: "terminal",
     checks: [{ type: "file_exists", path: "broken-link/about.html" }],
   },
+  {
+    id: "time-traveler",
+    type: "flag",
+    genre: "git",
+    flag: "FLAG{history_reveals_what_was_deleted}",
+  },
 ];
