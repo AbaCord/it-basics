@@ -32,7 +32,7 @@ export function LanguageSwitcher() {
         <Button
           variant="ghost"
           size="sm"
-          className="text-muted-foreground hover:text-foregroud gap-2 text-xs"
+          className="text-muted-foreground hover:text-foregroud cursor-pointer gap-2 text-xs"
         >
           <Languages className="size-3.5" />
           <span className="hidden sm:inline">

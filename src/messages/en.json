@@ -193,5 +193,8 @@
       "repo": "push a commit",
       "flag": "submit a flag"
     }
+  },
+  "Footer": {
+    "label": "Made by AbaCord"
   }
 }
