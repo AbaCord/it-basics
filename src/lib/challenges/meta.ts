@@ -107,4 +107,10 @@ export const challenges: ChallengeMeta[] = [
     genre: "git",
     flag: "FLAG{history_reveals_what_was_deleted}",
   },
+  {
+    id: "system-diagnostics",
+    type: "flag",
+    genre: "git",
+    flag: "FLAG{wednesday_lunchtime_diagnostics}",
+  },
 ];
